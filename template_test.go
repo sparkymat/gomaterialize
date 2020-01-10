@@ -30,7 +30,7 @@ func TestTemplateWithExtras(t *testing.T) {
 		ExtraHeadNodes([]html.HeadNode{
 			html.MetaInfo("author", "foo"),
 		}).
-		Css([]string{
+		CSS([]string{
 			"http://style-link-1",
 		}).
 		Body(
