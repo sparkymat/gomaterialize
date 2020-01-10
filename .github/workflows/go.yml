@@ -28,4 +28,4 @@ jobs:
       run: golangci-lint run --enable-all
 
     - name: Run tests and ensure 100% coverage
-      run: go test -v ./... -cover | grep "coverage: 100.0% of statements"
+      run: "go test -v ./... -cover | grep \"coverage: 100.0% of statements\""
