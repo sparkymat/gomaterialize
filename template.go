@@ -7,7 +7,7 @@ import (
 
 type Template struct {
 	title          string
-	bodyNode       html.BodyNode
+	bodyNode       *html.BodyNode
 	extraHeadNodes []html.HeadNode
 	styleNodes     []html.HeadNode
 	scriptNodes    []html.BodyNode
@@ -37,7 +37,7 @@ func (t Template) ExtraHeadNodes(nodes []html.HeadNode) Template {
 
 func (t Template) Body(bodyNode html.BodyNode) Template {
 	copiedTemplate := t
-	copiedTemplate.bodyNode = bodyNode
+	copiedTemplate.bodyNode = &bodyNode
 	return copiedTemplate
 }
 
@@ -49,9 +49,12 @@ func (t Template) HTML() html.HTMLNode {
 	headNodes = append(headNodes, t.styleNodes...)
 	headNodes = append(headNodes, t.extraHeadNodes...)
 
-	bodyNodes := []html.BodyNode{
-		t.bodyNode,
+	bodyNodes := []html.BodyNode{}
+
+	if t.bodyNode != nil {
+		bodyNodes = append(bodyNodes, *t.bodyNode)
 	}
+
 	bodyNodes = append(bodyNodes, t.scriptNodes...)
 
 	return html.HTML(
