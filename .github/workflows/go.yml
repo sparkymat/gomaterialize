@@ -23,9 +23,10 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.22.2
 
     - name: Run linter
-      run: docker run --rm -v $(pwd):/app -w /app golangci/golangci-lint:v1.22.2 golangci-lint run --enable-all
+      run: ./bin/golangci-lint run --enable-all
 
     - name: Run tests and ensure 100% coverage
       run: "go test -v ./... -cover | grep \"coverage: 100.0% of statements\""
